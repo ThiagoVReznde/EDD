@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 typedef struct Info_Pilotos{
-    char Nome[31];
+    char Nome[32];
     int tempo_mm;
 } Info_Pilotos;
 
@@ -22,12 +22,12 @@ void Leitura(Info_Pilotos* v, size_t n){
 void Bubblesort(Info_Pilotos* v, size_t n){
     for (int i = 0; i < n-1; i++)
     {
-        for (int j = i+1; j < n; j++)
+        for (int j = 0; j < n-i-1; j++)
         {
-            if (v[i].tempo_mm > v[j].tempo_mm)
+            if (v[j+1].tempo_mm < v[j].tempo_mm)
             {
-                Info_Pilotos swap = v[i];
-                v[i] = v[j];
+                Info_Pilotos swap = v[j+1];
+                v[j+1] = v[j];
                 v[j] = swap;
             }
         }
@@ -38,13 +38,13 @@ void print(Info_Pilotos* v, size_t n){
     for (int i = 0; i < n; i++)
     {
         int minutos = (v[i].tempo_mm/1000)/60;
-        int segundos = ((v[i].tempo_mm/1000)-60);
-        printf("%d. %s - %d:%.2d.%d\n", i+1, v[i].Nome, minutos, segundos, v[i].tempo_mm%1000);
+        int segundos = (v[i].tempo_mm - minutos*60000)/1000;
+        printf("%d. %s - %d:%.2d.%.3d\n", i+1, v[i].Nome, minutos, segundos, v[i].tempo_mm%1000);
     }
     
 }
 
-void main(){
+int main(){
     int n;
     scanf("%d", &n);
 
@@ -54,5 +54,5 @@ void main(){
     Bubblesort(v, n);
     print(v, n);
         
-    return;
+    return 0;
 }
