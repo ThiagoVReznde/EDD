@@ -1,0 +1,87 @@
+#include <stdio.h>
+
+void merge(int* v, int* v1, int* v2, size_t size){
+    size_t size_v1 = size / 2;
+    size_t size_v2 = size - size_v1;
+    size_t i = 0, j = 0, k = 0;
+
+    while (j < size_v1 && k < size_v2) {
+        if (v1[j] <= v2[k])
+            v[i++] = v1[j++];
+        else
+            v[i++] = v2[k++];
+    }
+
+    while (j < size_v1)
+        v[i++] = v1[j++];
+    while (k < size_v2)
+        v[i++] = v2[k++];
+}
+
+void merge_sort(int* v, size_t size){
+    if(size <= 1)
+        return;
+
+    size_t mid = size / 2;
+    int v1[mid];
+    int v2[size - mid];
+
+    for(size_t i = 0; i < mid; i++)
+        v1[i] = v[i];
+    for(size_t i = mid; i < size; i++)
+        v2[i - mid] = v[i];
+
+    merge_sort(v1, mid);
+    merge_sort(v2, size - mid);
+    merge(v, v1, v2, size);
+}
+
+int processamento(int* v, size_t size){
+    int equilibrio = 1;
+    int i = 0;
+    int k;
+    
+    while (i < size){
+        k = i;
+    
+        if (v[i] == 0 || v[i] == 1)
+            while (v[i] == 0 || v[i] == 1)   
+                i++;
+            
+        if (v[k] == 0 || v[k] == 1)
+            while (v[k] == 0 || v[k] == 1)
+                k++;
+        
+        while((v[k]%v[i] == 0 || v[i]%v[k] == 0) && k < size)
+            k++;
+        
+        if(k == size){
+            i++;
+        }
+        else{
+            equilibrio = 0;
+            break;
+        }
+    }
+    
+    return equilibrio;
+}
+
+int main() {
+    int n;
+    
+    scanf("%d", &n);
+    int arr[n];
+    
+    for(int i = 0; i < n; i++){
+        scanf("%d", &arr[i]);
+    }
+    
+    merge_sort(arr, n);
+    
+    if (processamento(arr, n)){
+        printf("Sim\n");
+    } else printf("Nao\n");
+
+    return 0;
+}
