@@ -44,12 +44,12 @@ int processamento(int* v, size_t size){
     while (i < size){
         k = i;
     
-        if (v[i] == 0 || v[i] == 1)
-            while (v[i] == 0 || v[i] == 1)   
+        if (v[i] == 0)
+            while (v[i] == 0)   
                 i++;
-            
-        if (v[k] == 0 || v[k] == 1)
-            while (v[k] == 0 || v[k] == 1)
+        
+        if (v[k] == 0)
+            while (v[k] == 0)
                 k++;
         
         while((v[k]%v[i] == 0 || v[i]%v[k] == 0) && k < size)
