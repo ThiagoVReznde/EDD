@@ -37,34 +37,22 @@ void merge_sort(int* v, size_t size){
 }
 
 int processamento(int* v, size_t size){
-    int equilibrio = 1;
     int i = 0;
     int k;
-    
+
     while (i < size){
-        k = i;
-    
-        if (v[i] == 0)
-            while (v[i] == 0)   
-                i++;
-        
-        if (v[k] == 0)
-            while (v[k] == 0)
-                k++;
-        
-        while((v[k]%v[i] == 0 || v[i]%v[k] == 0) && k < size)
-            k++;
-        
-        if(k == size){
-            i++;
+        for(k = i+1; k < size; k++){
+            if(v[i] == 0 || v[k] == 0)
+                continue;
+            if(v[i]%v[k] != 0 && v[k]%v[i] != 0){
+                return 0;
+            }
         }
-        else{
-            equilibrio = 0;
-            break;
-        }
+        
+        i++;
     }
     
-    return equilibrio;
+    return 1;
 }
 
 int main() {
