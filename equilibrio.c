@@ -43,10 +43,11 @@ int processamento(int* v, size_t size){
     while (i < size){
         for(k = i+1; k < size; k++){
             if(v[i] == 0 || v[k] == 0)
-                continue;
-            if(v[i]%v[k] != 0 && v[k]%v[i] != 0){
+                return 1;
+            
+            if(v[i]%v[k] != 0 && v[k]%v[i] != 0)
                 return 0;
-            }
+            
         }
         
         i++;
