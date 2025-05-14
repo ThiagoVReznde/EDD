@@ -101,13 +101,10 @@ int not_so_binary_search(int* v, size_t size, int target, int m_linhas){
     r = size-1;
     
     // calc somas
-    // mudança: tem um = agora
-    while (l <= r)
+    // mudanca: tirei o =
+    // mudanca>: leve alteracao na logica
+    while (l < r && m_linhas_preenchidas < m_linhas)
     {
-        if (m_linhas_preenchidas == m_linhas){
-            return n_taubas;
-        }
-        
         int soma = v[l]+v[r];
         
         if (v[l] == target){
@@ -130,7 +127,9 @@ int not_so_binary_search(int* v, size_t size, int target, int m_linhas){
     }
 
 
-    return -1;
+    if (m_linhas_preenchidas == m_linhas){
+            return n_taubas;
+    } else return -1;
 }
 
 
