@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct tree_node_t {
     int data;
@@ -13,11 +14,12 @@ typedef struct tree_t {
 
 bool is_bst_helper(tree_node_t* node){
     if (node == NULL)
-        return true;
+        return true;    
     
-    if (node->left->data <= node->data && node->right->data >= node->data)
-        return (is_bst_helper(node->left) && is_bst_helper(node->right)) ? true : false;
-    else 
+    if ((node->left == NULL || node->left->data <= node->data) && 
+    (node->right == NULL || node->right->data >= node->data))
+        return (is_bst_helper(node->left) && is_bst_helper(node->right));
+    else
         return false;
 }
 
